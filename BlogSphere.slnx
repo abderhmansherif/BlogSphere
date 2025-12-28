@@ -1,5 +1,7 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="BlogSphere.Application/BlogSphere.Application.csproj" />
+    <Project Path="BlogSphere.Domain/BlogSphere.Domain.csproj" />
     <Project Path="BlogSphere.WebUI/BlogSphere.WebUI.csproj" />
   </Folder>
 </Solution>
