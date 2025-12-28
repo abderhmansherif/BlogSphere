@@ -7,6 +7,6 @@ namespace BlogSphere.Application.Articles
 {
     public interface IArticleService
     {
-        List<Article> GetArticles();
+        Task<List<Article>> GetArticles();
     }
 }

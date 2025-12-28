@@ -2,6 +2,7 @@
   <Folder Name="/src/">
     <Project Path="BlogSphere.Application/BlogSphere.Application.csproj" />
     <Project Path="BlogSphere.Domain/BlogSphere.Domain.csproj" />
+    <Project Path="BlogSphere.Infrastructure/BlogSphere.Infrastructure.csproj" Id="4cc43c35-2dab-454b-b798-bd09a6d40033" />
     <Project Path="BlogSphere.WebUI/BlogSphere.WebUI.csproj" />
   </Folder>
 </Solution>

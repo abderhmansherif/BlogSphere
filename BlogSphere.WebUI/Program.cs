@@ -1,5 +1,6 @@
 using BlogSphere.Application;
 using BlogSphere.Application.Articles;
+using BlogSphere.Infrastructure;
 using BlogSphere.WebUI.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents();
 
-builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration).AddApplication();
 
 var app = builder.Build();
 

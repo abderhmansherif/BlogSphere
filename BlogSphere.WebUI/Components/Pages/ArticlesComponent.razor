@@ -1,5 +1,5 @@
 ﻿@page "/articles"
-@inject IArticleService ArticleService
+@inject IArticleRepository ArticleService
 @attribute [StreamRendering]
 
 <PageTitle>Articles</PageTitle>
@@ -12,7 +12,7 @@
     {
         <h4>@article.Title</h4>
         <p>@article.Content</p>
-        <span>@article.DatePublished</span>
+        <span>@article.DateCreated</span>
     }
 }
 else
@@ -28,6 +28,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(1000);
-        articles = ArticleService.GetArticles();
+        articles = await ArticleService.GetAllArticlesAsync();
     }
 }
