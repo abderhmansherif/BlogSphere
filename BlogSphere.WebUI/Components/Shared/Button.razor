@@ -1,0 +1,97 @@
+﻿    <button 
+        class="@CssClasses"
+        @onclick="HandleClick"
+        disabled = "@Disabled"
+        type="@Type">
+
+        @ChildContent;
+
+    </button>
+
+
+
+
+@code
+{
+    public enum ButtonVariant
+    {
+        Primary,
+        Secondary,
+        Outline,
+        Ghost,
+        Danger
+    }
+
+    public enum ButtonSize
+    {
+        Sm,
+        Md,
+        Lg
+    }
+}
+
+
+@code
+{
+
+    [Parameter]
+    public bool Disabled { get; set; } = false;
+
+    public string Class { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Type { get; set; } = "button";
+
+    [Parameter] 
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] 
+    public bool FullWidth { get; set; } = false;
+
+
+    [Parameter] 
+    public ButtonVariant Variant { get; set; } = ButtonVariant.Primary;
+
+    [Parameter] 
+    public ButtonSize Size { get; set; } = ButtonSize.Md;
+
+    [Parameter] 
+    public EventCallback OnClickEvent { get; set; }
+
+
+    private const string BaseStyles =
+        "rounded-lg transition-all duration-200 inline-flex items-center justify-center gap-2";
+
+    private static readonly Dictionary<ButtonVariant, string> Variants = new()
+    {
+        { ButtonVariant.Primary,   "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md" },
+        { ButtonVariant.Secondary, "bg-gray-100 text-gray-900 hover:bg-gray-200" },
+        { ButtonVariant.Outline,   "border-2 border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50" },
+        { ButtonVariant.Ghost,     "text-gray-700 hover:bg-gray-100" },
+        { ButtonVariant.Danger,    "bg-red-600 text-white hover:bg-red-700 shadow-sm hover:shadow-md" },
+    };
+
+    private static readonly Dictionary<ButtonSize, string> Sizes = new()
+    {
+        { ButtonSize.Sm, "px-3 py-1.5 text-sm" },
+        { ButtonSize.Md, "px-4 py-2" },
+        { ButtonSize.Lg, "px-6 py-3" },
+    };
+
+    private string CssClasses =>
+            string.Join(" ",
+                BaseStyles,
+                Variants[Variant],
+                Sizes[Size],
+                FullWidth ? "w-full" : "",
+                Class
+            );
+   
+    public async Task HandleClick()
+    {
+        await OnClickEvent.InvokeAsync();
+    }
+}
+
+
+
