@@ -1,12 +1,12 @@
-﻿using BlogSphere.Domain.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BlogSphere.Domain.Articles
 {
-    public class Article : Entity
+    public class ArticleViewModel
     {
+        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         public string CoverImage { get; set; } = string.Empty;
@@ -18,5 +18,6 @@ namespace BlogSphere.Domain.Articles
         public int Comments { get; set; }
         public int Views { get; set; }
         public int ReadTime { get; set; }
+
     }
 }

@@ -7,6 +7,7 @@ namespace BlogSphere.Application.Articles
 {
     public interface IArticleService
     {
-        Task<List<Article>> GetArticles();
+        Task<List<ArticleViewModel>> GetArticles();
+        Task<ArticleViewModel> GetArticleById(int id);
     }
 }
