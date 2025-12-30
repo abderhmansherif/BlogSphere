@@ -1,0 +1,43 @@
+﻿
+<div @onclick="HandleClick" @onmouseenter="OnMouseEnter" @onmouseleave="OnMouseLeave" class="@CardClass" style="@CardStyle">
+    @Content
+</div>
+
+@code{
+    [Parameter]
+    public RenderFragment? Content { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public string ClassName { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool Hover { get; set; } = false;
+
+    public bool IsHovered = false;
+
+    private string CardClass =>
+            $"bg-white rounded-xl border border-gray-200 {(Hover && IsHovered ? "cursor-pointer" : "")} {ClassName}";
+
+    private string CardStyle =>
+                        (Hover && IsHovered)
+                        ? "transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.2s;" 
+                        : "transition: all 0.2s;";
+
+    public async Task HandleClick()
+    {
+        await OnClick.InvokeAsync();
+    }
+
+    public void OnMouseEnter()
+    {
+        IsHovered = true;
+    }
+
+    public void OnMouseLeave()
+    {
+        IsHovered = false;
+    }
+}
