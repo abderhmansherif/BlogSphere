@@ -7,11 +7,46 @@
     <base href="/" />
     <ResourcePreloader />
     <link rel="stylesheet" href="@Assets["lib/bootstrap/dist/css/bootstrap.min.css"]" />
-    <link rel="stylesheet" href="@Assets["app.css"]" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/glopal.css" rel="stylesheet" />
     <link rel="stylesheet" href="@Assets["BlogSphere.WebUI.styles.css"]" />
     <ImportMap />
     <link rel="icon" type="image/png" href="favicon.png" />
+    
     <HeadOutlet />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                red: {
+                  50: '#fff1f2',
+                  100: '#ffe4e6',
+                  500: '#ef4444',
+                  600: '#dc2626',
+                  700: '#b91c1c'
+                },
+                blue: {
+                  50: '#eff6ff',
+                  100: '#dbeafe',
+                  500: '#3b82f6',
+                  600: '#2563eb',
+                  700: '#1d4ed8'
+                },
+                green: {
+                  50: '#f0fdf4',
+                  100: '#dcfce7',
+                  500: '#22c55e',
+                  600: '#16a34a',
+                  700: '#15803d'
+                }
+              }
+            }
+          }
+        }
+    </script>
 </head>
 
 <body>

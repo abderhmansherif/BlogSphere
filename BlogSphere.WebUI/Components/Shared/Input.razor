@@ -1,0 +1,59 @@
+﻿<div class="w-full">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="block text-gray-700 mb-1.5">
+            @Label
+        </label>
+    }
+
+    <input @bind="Value"
+           class="w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all @(HasError ? "border-red-500 focus:ring-red-500" : "border-gray-300") @(ClassName)"
+           placeholder="@PlaceHolder"
+           type="@Type"
+           @oninput="HandleInput" />
+
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <p class="mt-1 text-sm text-red-600">@ErrorMessage</p>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <p class="mt-1 text-sm text-gray-500">@HelperText</p>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter]
+    public string PlaceHolder { get; set; } = string.Empty;
+
+    [Parameter]
+    public string ErrorMessage { get; set; } = string.Empty;
+
+    [Parameter]
+    public string HelperText { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Type { get; set; } = "text";
+
+    [Parameter]
+    public string ClassName { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<string> OnInput { get; set; }
+
+
+    public string Value = string.Empty;
+
+    private bool HasError => !string.IsNullOrEmpty(ErrorMessage);
+
+    public async Task HandleInput(ChangeEventArgs e)
+    {
+        Value = e.Value.ToString();
+        await OnInput.InvokeAsync(Value);
+    }
+
+} 
