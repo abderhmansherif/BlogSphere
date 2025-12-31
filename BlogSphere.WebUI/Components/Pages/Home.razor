@@ -7,6 +7,15 @@
 {
     ArticleViewModel article = new();
 
+    public List<string> tags = new()
+    {
+        "React", "JavaScript", "Web Development", "CSS", "Node.js",
+        "Python", "Machine Learning", "Data Science", "TypeScript",
+        "DevOps", "Cloud Computing", "Microservices", "API Design",
+        "UI/UX", "Mobile Development"
+    };
+
+
     protected override async Task OnInitializedAsync()
     {
         article = new()
@@ -31,6 +40,11 @@
         <ArticleCard Article="article"></ArticleCard>
     </ChildContent>
 </Card>
+
+<br />
+<br />
+
+<TagCloud Tags="tags"></TagCloud>
 
 
 <br />

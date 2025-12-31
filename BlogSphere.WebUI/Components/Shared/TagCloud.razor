@@ -1,0 +1,38 @@
+﻿@inject NavigationManager NavManager
+
+@if(Tags is not null && Tags.Count > 0)
+{
+    <div class="tag-cloud">
+        @foreach(var tag in Tags)
+        {
+            <button class="tag-cloud-item" @onclick="() => HandleTagClick(tag)">
+                @tag
+            </button>
+        }
+        <button class="see-more-tags" @onclick="GoToTagDetail">
+            See more topics
+        </button>
+    </div>
+}
+else
+{
+    // No tags right now :<
+}
+
+
+
+@code {
+    [Parameter]
+    public List<string>? Tags { get; set; }
+
+    public void HandleTagClick(string tag)
+    {
+        //TODO: Explore more articles with the choosen tag
+    }
+
+    public void GoToTagDetail()
+    {
+        //TODO: View More Tags
+    }
+
+}
