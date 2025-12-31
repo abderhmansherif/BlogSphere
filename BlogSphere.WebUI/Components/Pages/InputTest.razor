@@ -1,0 +1,37 @@
+﻿@page "/test"
+@rendermode InteractiveServer
+
+
+<Input Label="Username" Error="@Error" Placeholder="your name" Type="InputType.Text" OnChange="ValidateUsername"></Input>
+<Input Label="Username" Error="@Error" Placeholder="your name" Type="InputType.Text" OnChange="ValidateUsername"></Input>
+
+
+<br />
+<br />
+
+@if(!string.IsNullOrEmpty(Username))
+{
+    <h3>@Username (is not Empty)</h3>
+}
+
+@code {
+    public string Username  = string.Empty;
+    public string Error = string.Empty;
+
+    public void ValidateUsername(string value)
+    {
+        if(string.IsNullOrEmpty(value))
+        {
+            Error = "That Feild is Required";
+            return;
+        }
+        Error = string.Empty;
+        Username = value;
+    }
+
+    public void Change()
+    {
+        Error = "AHA";
+    }
+
+}
