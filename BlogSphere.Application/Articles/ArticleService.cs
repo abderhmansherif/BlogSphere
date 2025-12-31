@@ -38,12 +38,12 @@ namespace BlogSphere.Application.Articles
                 Tags = new List<string>(){"Programming", "Spring Boot", "Java"}
             },
         };
-        public async Task<ArticleViewModel> GetArticleById(int id)
+        public async Task<ArticleViewModel> GetArticleByIdAsync(int id)
         {
             return articles.First(x => x.Id == id);
         }
 
-        public async Task<List<ArticleViewModel>> GetArticles()
+        public async Task<List<ArticleViewModel>> GetArticlesAsync()
         {
             return articles;
         }

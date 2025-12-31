@@ -1,6 +1,52 @@
 ﻿@page "/"
 @using BlogSphere.WebUI.Components.Shared
-@inject IArticleService ArticleService
+@using BlogSphere.WebUI.Components.Shared.Enums
 <PageTitle>Articles</PageTitle>
 
-<h3>Hello from React</h3>
+@code
+{
+    ArticleViewModel article = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        article = new()
+        {
+            Id = 2,
+            Title = "Article 2",
+            Content = "This is Article 2",
+            CoverImage = "/images/test2.jpg",
+            AuthorId = 1,
+            Likes = 90,
+            Views = 300,
+            ReadTime = 5,
+            PublishedAt = DateTime.UtcNow.AddMonths(-1),
+            Tags = new List<string>() { "Programming", "Spring Boot", "Java" }
+        };
+    }
+
+}
+
+<Card Hoverable="true" >
+    <ChildContent>
+        <ArticleCard Article="article"></ArticleCard>
+    </ChildContent>
+</Card>
+
+
+<br />
+<br />
+<br />
+
+<h3>Button 1</h3>
+<Button Variant="ButtonVariant.Primary" Size="Size.md"><ChildContent>I AM Button 1</ChildContent></Button>
+
+<br />
+
+<h3>Button 2</h3>
+<Button Variant="ButtonVariant.Danger" Size="Size.lg" FullWidth="true"><ChildContent>I AM Button 2</ChildContent></Button>
+
+<br />
+
+<h3>Button 3</h3>
+<Button Variant="ButtonVariant.Outline" Size="Size.sm"><ChildContent>I AM Button 3</ChildContent></Button>
+
