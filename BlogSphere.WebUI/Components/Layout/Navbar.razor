@@ -25,7 +25,7 @@
             <div class="navbar-links">
                 <a @onclick="OnNavigate">Home</a>
 
-                @if (true) // Is Authenticated
+                @if (IsAuthenticated) // Is Authenticated
                 {
                     <a @onclick="NavigateToWrite">Write</a>
                     <a @onclick="@(() => NavManager.NavigateTo("#"))">Drafts</a>
@@ -44,7 +44,7 @@
                     <input type="text" placeholder="Search..." class="search-input" />
                 </div>
 
-                @if (true) //Is Authenticated
+                @if (IsAuthenticated) //Is Authenticated
                 {
                     <!-- Notifications -->
                     <div class="notification-container">
@@ -115,7 +115,7 @@
                                 <a class="dropdown-item" @onclick="@(() => NavManager.NavigateTo("#"))">My Drafts</a>
                                 <a class="dropdown-item" @onclick="@(() => NavManager.NavigateTo("#"))">Settings</a>
 
-                                @if (true) @*Is Admin*@
+                                @if ((CurrentUser?.IsAdmin ?? false)) @*Is Admin*@
                                 {
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @onclick="@(() => NavManager.NavigateTo("#"))">
@@ -140,7 +140,7 @@
                             </ChildContent>
                         </Button>
 
-                        <Button Variant="ButtonVariant.Primary" OnClick="@(() => NavManager.NavigateTo("/signup"))">
+                        <Button Variant="ButtonVariant.Primary" OnClick="@(() => NavManager.NavigateTo("/get-started"))">
                             <ChildContent>
                                 Get started
                             </ChildContent>
@@ -155,22 +155,13 @@
 
 @code
 {
+    [Parameter]
+    public UserDto? CurrentUser { get; set; }
+    [Parameter]
+    public bool IsAuthenticated { get; set; } = false;
 
-    // [Parameter] public EventCallback<string> OnNavigate { get; set; }
-    public UserDto? CurrentUser;
-
-    protected override void OnInitialized()
-    {
-        CurrentUser  = new()
-        {
-            Name = "Abderhman",
-            Email = "Abderhman@gmail.com",
-            IsAdmin = true
-        };
-    }
-
-    protected bool ShowNotifications { get; set; }
-    protected bool ShowUserMenu { get; set; }
+    protected bool ShowNotifications { get; set; } = false;
+    protected bool ShowUserMenu { get; set; }  = false;
     protected bool ShowMobileMenu { get; set; }
 
     protected void ToggleNotifications()
@@ -216,7 +207,7 @@
     {
         public string Name { get; set; } = "";
         public string Email { get; set; } = "";
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; } = false;
     }
 
 }

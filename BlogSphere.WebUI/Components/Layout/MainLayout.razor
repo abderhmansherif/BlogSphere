@@ -1,11 +1,28 @@
-﻿@inherits LayoutComponentBase
+﻿@using static BlogSphere.WebUI.Components.Layout.Navbar
+@inherits LayoutComponentBase
 
    <div class="app">
 
-       <Navbar></Navbar>
+       <Navbar CurrentUser="user" IsAuthenticated="false"></Navbar>
 
       <main class="main-content">
           @Body
       </main>
     </div>
+
+
+@code
+{
+    public UserDto? user { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // user = new()
+        // {
+        //     Name = "Abderhman",
+        //     Email = "Abderhman@gmail.com",
+        //     IsAdmin = true
+        // };
+    }
+}
 
