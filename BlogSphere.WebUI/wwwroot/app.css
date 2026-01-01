@@ -105,9 +105,9 @@ a {
     transition: color 0.2s ease;
 }
 
-a:hover {
-    color: var(--primary-hover);
-}
+    a:hover {
+        color: var(--primary-hover);
+    }
 
 /* Container */
 .container {

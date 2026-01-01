@@ -1,0 +1,201 @@
+﻿@page "/login"
+
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+
+            <div class="auth-header">
+                <h1>Welcome back</h1>
+                <p>Sign in to your BlogSphere account</p>
+            </div>
+
+            <EditForm OnValidSubmit="HandleSubmit" Model="userInfo" class="auth-form">
+
+                <Input Type="InputType.Email"
+                       Label="Email address"
+                       Placeholder="@(@"you@gmail.com")"
+                       Value="@Email"
+                       OnChange="OnEmailChanged"
+                       Error="@Errors.GetValueOrDefault("email")">
+
+                <Icon>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <rect x="2" y="4" width="20" height="16" rx="2" />
+                        <path d="m2 7 10 7 10-7" />
+                    </svg>
+                </Icon>
+
+                </Input>
+
+                <Input Type="InputType.Password"
+                       Label="Password"
+                       Placeholder="Enter your password"
+                       Value="@Password"
+                       OnChange="OnPasswordChanged"
+                       Error="@Errors.GetValueOrDefault("password")">
+
+                <Icon>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                </Icon>
+
+                </Input>
+
+                <div class="auth-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" />
+                        <span>Remember me</span>
+                    </label>
+
+                    <a class="link" @onclick="HandleForgotPassword">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <Button Type="ButtonType.Submit" Variant="ButtonVariant.Primary" Size="Size.lg" FullWidth="true">
+                    Sign in
+                </Button>
+
+            </EditForm>
+
+            <div class="auth-divider">
+                <span>or continue with</span>
+            </div>
+
+            <div class="social-buttons">
+                <button class="social-button">
+                    <!-- Google SVG -->
+                    ...
+                    Google
+                </button>
+
+                <button class="social-button">
+                    <!-- Facebook SVG -->
+                    ...
+                    Facebook
+                </button>
+            </div>
+
+            <div class="auth-footer">
+                <p>
+                    Don't have an account?
+                    <a class="link" @onclick="SignUp">
+                        Sign up
+                    </a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@code 
+{
+    // [Parameter]     
+    // public EventCallback<string> OnNavigate { get; set; }
+    // [Parameter] 
+    // public EventCallback<object> OnLogin { get; set; }
+
+    public UserInfo? userInfo { get; set; }
+
+    private string Email { get; set; } = string.Empty;
+    private string Password { get; set; } = string.Empty;
+
+    private Dictionary<string, string> Errors { get; set; } = new()
+    {
+        { "email", string.Empty},
+        { "password", string.Empty}
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        userInfo = new()
+        {
+            Username = string.Empty,
+            Password = string.Empty,
+        };
+    }
+
+    private void OnEmailChanged(string value)
+    {
+        if(string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+        {
+            Errors["email"] = "Username is required";
+            return;
+        }
+        if(value.Length < 4)
+        {
+            Errors["email"] = "Username should Atleast 4 letters";
+            return;
+        }
+        Errors["email"] = string.Empty;
+        Email = value;
+    }
+
+    private void OnPasswordChanged(string value)
+    {
+        if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+        {
+            Errors["password"] = "password is required";
+            return;
+        }
+        if (value.Length < 4)
+        {
+            Errors["password"] = "password should Atleast 4 letters";
+            return;
+        }
+        Errors["password"] = string.Empty;
+        Password = value;
+    }
+
+    public void HandleForgotPassword()
+    {
+        NavigationManager.NavigateTo("forgot-password");
+    }
+
+    public void SignUp()
+    {
+        NavigationManager.NavigateTo("signup");
+    }
+
+    private async Task HandleSubmit()
+    {
+        Errors.Clear();
+
+        if (string.IsNullOrWhiteSpace(Email))
+            Errors["email"] = "Email is required";
+
+        if (string.IsNullOrWhiteSpace(Password))
+            Errors["password"] = "Password is required";
+
+        if (Errors.Any())
+            return;
+
+        var user = new
+        {
+            Name = "John Doe",
+            Email,
+            IsAdmin = Email == "admin@blogsphere.com"
+        };
+
+    }
+
+
+    public class UserInfo
+    {
+        public required string Username { get; set; }
+        public required string Password { get; set; }
+    }
+}
+
+
+
+   
+

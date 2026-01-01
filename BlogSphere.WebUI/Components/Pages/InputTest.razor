@@ -2,9 +2,9 @@
 @rendermode InteractiveServer
 
 
-<Input Label="Username" Error="@Error" Placeholder="your name" Type="InputType.Text" OnChange="ValidateUsername"></Input>
-<Input Label="Username" Error="@Error" Placeholder="your name" Type="InputType.Text" OnChange="ValidateUsername"></Input>
-
+<Input Label="Username" Error="@ErrorUsername" Placeholder="your name" Type="InputType.Text" OnChange="ValidateUsername"></Input>
+<Input Label="Age" Error="@ErrorAge" Placeholder="Age" Type="InputType.Number" OnChange="ValidateAge"></Input>
+<Input Label="Password" Type="InputType.Password"></Input>
 
 <br />
 <br />
@@ -14,24 +14,51 @@
     <h3>@Username (is not Empty)</h3>
 }
 
+@if (Age > 0)
+{
+    <h3>@Age (is not Empty)</h3>
+}
+
 @code {
     public string Username  = string.Empty;
-    public string Error = string.Empty;
+    public string ErrorUsername = string.Empty;
+    public int Age { get; set; }
+    public string ErrorAge = string.Empty;
 
     public void ValidateUsername(string value)
     {
         if(string.IsNullOrEmpty(value))
         {
-            Error = "That Feild is Required";
+            ErrorUsername = "That Feild is Required";
             return;
         }
-        Error = string.Empty;
+        ErrorUsername = string.Empty;
         Username = value;
     }
 
-    public void Change()
+    public void ValidateAge(string value)
     {
-        Error = "AHA";
+        if (string.IsNullOrEmpty(value))
+        {
+            ErrorUsername = "That Feild is Required";
+            return;
+        }
+
+        if (!int.TryParse(value, out int trustedValue))
+        {
+            ErrorAge = "That is Invalid";
+            return;
+        }
+
+        if(trustedValue <= 0)
+        {
+            ErrorAge = "Invalid Age";
+            return;
+        }
+
+        ErrorAge = string.Empty;
+        Age = trustedValue;
+
     }
 
 }
