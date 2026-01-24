@@ -1,5 +1,6 @@
 ﻿@using BlogSphere.WebUI.Components.Shared.Enums
 @using System.Linq.Expressions
+@inherits InputBase<string>
 
 <div class="input-group">
     @if(!string.IsNullOrEmpty(Label))
@@ -20,61 +21,59 @@
             </div>
         }
 
-        <input type="@Types[Type]"
+        <input type="@Types[InputType]"
                class="@InputCssClass"
                placeholder="@Placeholder"
-               value="@Value"
+               @bind="@CurrentValue"
                disabled="@Disabled"
                required="@Required" 
-               @oninput="HnadleChange"/>
+               />
     </div>
 
-    @if (!string.IsNullOrEmpty(Error))
-    {
-        <span class="error-message">@Error</span>
-    }
+    <div class="error-message">
+        <ValidationMessage For="@ValidationFor"></ValidationMessage>
+    </div>
+ 
 </div>
 
 
 @code
 {
     [Parameter]
-    public InputType Type { get; set; } = InputType.Text;
+    public InputType InputType { get; set; } = InputType.Text;
     [Parameter]
     public bool Disabled { get; set; } = false;
     [Parameter]
     public RenderFragment? Icon { get; set; }
     [Parameter]
-    public string CssClass { get; set; } = string.Empty;
-    [Parameter]
-    public string Error { get; set; } = string.Empty;
+    public string Styles { get; set; } = string.Empty;
     [Parameter]
     public string Label { get; set; } = string.Empty;
     [Parameter]
     public string Placeholder { get; set; } = string.Empty;
-    [Parameter] 
-    public string Value { get; set; } = string.Empty;
-    [Parameter]
-    public EventCallback<string> OnChange { get; set; }
     [Parameter]
     public bool Required { get; set; } = false;
+    [Parameter, EditorRequired] public 
+    Expression<Func<string>> ValidationFor { get; set; } = default!;
+
+
 
     public Dictionary<InputType, string> Types = new()
     {
-        { InputType.File, "file"},
         { InputType.Email, "email"},
         { InputType.Number, "number"},
         { InputType.Text, "text"},
         { InputType.Password, "password"},
-
     };
 
     private string InputCssClass 
-                => $"input {(string.IsNullOrEmpty(Error) ? "" : "input-error")} {(Icon != null ? "input-with-icon" : "")} {CssClass}";
+          => $"input {CssClass} {(Icon != null ? "input-with-icon" : "")} {Styles}";
 
-    public async Task HnadleChange(ChangeEventArgs e)
+
+    protected override bool TryParseValueFromString(string? value, out string result, out string? validationErrorMessage)
     {
-        var value = e.Value?.ToString();
-        await OnChange.InvokeAsync(value);
+        result = value??string.Empty;
+        validationErrorMessage = null;
+        return true;
     }
 }
