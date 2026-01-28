@@ -1,1 +1,250 @@
-﻿
+﻿@page "/get-started"
+@using System.ComponentModel.DataAnnotations
+
+@inject NavigationManager NavManager
+@rendermode InteractiveServer
+
+<PageTitle>Register - BlogSphere</PageTitle>
+
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Create your account</h1>
+                <p>Join BlogSphere and start sharing your stories</p>
+            </div>
+
+            <EditForm EditContext="editContext" FormName="RegisterUser" OnValidSubmit="HandleSubmit" class="auth-form">
+               
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <AntiforgeryToken></AntiforgeryToken>
+
+                <div class="input-group">
+
+                    <label for="Name">
+                        Name
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+
+
+                        <InputText type="text"
+                                   id="Name"
+                                @bind-Value="registerViewModel.Username"
+                               class="@NameInputStyle"
+                               placeholder="John Doe"
+                                />
+
+                    </div>
+
+                    <ValidationMessage class="error-message"  For="@(() => registerViewModel.Username)"></ValidationMessage> 
+                 </div>
+
+                <div class="input-group">
+
+                    <label for="Email">
+                        Email
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="m2 7 10 7 10-7" />
+                            </svg>
+                        </div>
+
+
+                        <InputText type="email"
+                                   id="Email"
+                                   @bind-Value="registerViewModel.Email"
+                                   class="@EmailInputStyle"
+                                   placeholder="johndoe@gmail.com"
+                                    />
+
+                    </div>
+
+                    <ValidationMessage class="error-message"  For="@(() => registerViewModel.Email)"></ValidationMessage> 
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="Password">
+                        Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+
+
+                        <InputText type="password"
+                                   id="Password"
+                                   @bind-Value="registerViewModel.Password"
+                                   class="@PasswordInputStyle"
+                                    />
+
+                    </div>
+
+                    <ValidationMessage class="error-message"  For="@(() => registerViewModel.Password)"></ValidationMessage> 
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="ConfirmPassword">
+                        Confirm Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+
+
+                        <InputText type="password"
+                                   id="ConfirmPassword"
+                                   @bind-Value="registerViewModel.ConfirmPassword"
+                                   class="@ConfirmPasswordInputStyle"
+                                    />
+
+                    </div>
+
+                    <ValidationMessage class="error-message"  For="@(() => registerViewModel.ConfirmPassword)"></ValidationMessage> 
+
+                </div>
+
+                <div class="terms-checkbox">
+                    <label class="checkbox-label">
+                        <input type="checkbox"  />
+                        <span>
+                            I agree to the
+                            <a href="#" class="link">Terms of Service</a> and
+                            <a href="#" class="link">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+
+                <Button type="ButtonType.Submit" variant="ButtonVariant.Primary" size="Size.lg" fullWidth>
+                    Create account
+                </Button>
+
+            </EditForm>
+
+            <div class="auth-divider">
+                <span>or continue with</span>
+            </div>
+
+            <div class="social-buttons">
+                <button class="social-button">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                    </svg>
+                    Google
+                </button>
+                <button class="social-button">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="#1877F2">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                    Facebook
+                </button>
+            </div>
+
+            <div class="auth-footer">
+                <p>
+                    Already have an account?
+                    <a @onclick="NavigateToLogin" class="link">
+                        Sign in
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@code
+{
+
+    public RegisterViewModel registerViewModel { get; set; } = new RegisterViewModel();
+    public EditContext? editContext;
+
+
+    protected override void OnInitialized()
+    {
+        editContext = new(registerViewModel);
+    }
+
+    public void HandleSubmit()
+    {
+        //
+    }
+
+    public void NavigateToLogin()
+    {
+        NavManager.NavigateTo("/login");
+    }
+
+  
+
+    public string NameInputStyle => $"input input-with-icon {editContext?.FieldCssClass(() => registerViewModel.Username)}";
+    public string EmailInputStyle => $"input input-with-icon {editContext?.FieldCssClass(() => registerViewModel.Email)}";
+    public string PasswordInputStyle => $"input input-with-icon {editContext?.FieldCssClass(() => registerViewModel.Password)}";
+    public string ConfirmPasswordInputStyle => $"input input-with-icon {editContext?.FieldCssClass(() => registerViewModel.ConfirmPassword)}";
+
+
+
+
+
+
+    public class RegisterViewModel
+    {
+        [Required(ErrorMessage = "Name is required.")]
+        public string Username { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Password is required.")]
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters long.")]
+        public string Password { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Confirm Password is required.")]
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+    }
+}
