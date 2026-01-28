@@ -24,15 +24,18 @@ else
 @code {
     [Parameter]
     public List<string>? Tags { get; set; }
+    [Parameter]
+    public EventCallback<string> OnTagClick { get; set; }
 
     public void HandleTagClick(string tag)
     {
-        //TODO: Explore more articles with the choosen tag
+        OnTagClick.InvokeAsync(tag);
     }
 
     public void GoToTagDetail()
     {
         //TODO: View More Tags
+        //Navigate to Tag Detail Page
     }
 
 }

@@ -1,0 +1,203 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+@inject IArticleService ArticleService
+
+
+@using System
+
+<div class="home-page">
+    <div class="home-hero">
+        <div class="container">
+            <h1>Discover stories, thinking, and expertise</h1>
+            <p>from writers on any topic.</p>
+
+            @if (!IsAuthenticated)
+            {
+                <button class="hero-cta" @onclick="@(() => NavigationManager.NavigateTo("get-started"))" >
+                    Start reading
+                </button>
+            }
+        </div>
+    </div>
+
+    <div class="home-content">
+        <div class="container">
+            <div class="content-grid">
+
+                <!-- Main Feed -->
+                <div class="main-feed">
+
+                    <!-- Tabs -->
+                    <div class="feed-tabs">
+                        <button class="feed-tab @(ActiveTab == "latest" ? "feed-tab-active" : "")"
+                                @onclick="@(() => SetTab("latest"))">
+                            Latest
+                        </button>
+
+                        <button class="feed-tab @(ActiveTab == "trending" ? "feed-tab-active" : "")"
+                                @onclick="@(() => SetTab("trending"))">
+                            Trending
+                        </button>
+
+                        @if (IsAuthenticated)
+                        {
+                            <button class="feed-tab @(ActiveTab == "following" ? "feed-tab-active" : "")"
+                                    @onclick="@(() => SetTab("following"))">
+                                Following
+                            </button>
+                        }
+                    </div>
+
+                    <!-- Selected Tags -->
+                    @if (SelectedTags.Any())
+                    {
+                        <div class="selected-tags">
+                            <span>Filtered by:</span>
+
+                            @foreach (var tag in SelectedTags)
+                            {
+                                <span class="selected-tag">
+                                    @tag
+                                    <button @onclick="() => HandleSelectedTagClick(tag)">×</button>
+                                </span>
+                            }
+                        </div>
+                    }
+
+                    <!-- Articles -->
+                    <div class="articles-list">
+                        @foreach (var article in Articles)
+                        {
+                            <ArticleCard Article="@article"/>
+                        }
+                    </div>
+
+                    <div class="load-more">
+                        <button class="load-more-btn">
+                            Load more articles
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="sidebar">
+
+                    <!-- Trending -->
+                    <div class="sidebar-section">
+                        <h3>Trending on BlogSphere</h3>
+
+                        <div class="trending-list">
+                            @for (int i = 0; i < TrendingArticles.Count; i++)
+                            {
+                                var article = TrendingArticles[i];
+
+                                <div class="trending-item"
+                                     @onclick="@(() => HandleArticleClick(article))">
+                                    <span class="trending-number">
+                                        @( (i + 1).ToString("D2") )
+                                    </span>
+
+                                    <div class="trending-content">
+                                        <div class="trending-author">@article.AuthorName</div>
+                                        <h4 class="trending-title">@article.Title</h4>
+                                        <div class="trending-views">@article.Views views</div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Tag Cloud -->
+                    <div class="sidebar-section">
+                        <h3>Discover more of what matters to you</h3>
+
+                        <TagCloud Tags="Tags"  />
+                    </div>
+
+                    <!-- Topics -->
+                    <div class="sidebar-section">
+                        <h3>Recommended topics</h3>
+
+                        <div class="topics-grid">
+                            <button class="topic-btn">Programming</button>
+                            <button class="topic-btn">Data Science</button>
+                            <button class="topic-btn">Technology</button>
+                            <button class="topic-btn">Self Improvement</button>
+                            <button class="topic-btn">Writing</button>
+                            <button class="topic-btn">Relationships</button>
+                            <button class="topic-btn">Machine Learning</button>
+                            <button class="topic-btn">Productivity</button>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="sidebar-footer">
+                        <a href="#">Help</a>
+                        <a href="#">Status</a>
+                        <a href="#">Writers</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">About</a>
+                    </div>
+
+                </aside>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code{
+
+    public List<ArticleViewModel>? Articles { get; set; }
+    public List<ArticleViewModel>? TrendingArticles { get; set; }
+    public bool IsAuthenticated = false;
+    public string ActiveTab = "latest";
+    public List<string> Tags = new()
+    {
+        "React", "JavaScript", "Web Development", "CSS", "Node.js",
+        "Python", "Machine Learning", "Data Science", "TypeScript",
+        "DevOps", "Cloud Computing", "Microservices", "API Design",
+        "UI/UX", "Mobile Development"
+    };
+
+    public List<string> SelectedTags = new () { "React", "JavaScript" };
+
+
+    public void HandleSelectedTagClick(string tag)
+    {
+        if(SelectedTags.Contains(tag))
+        {
+            SelectedTags.Remove(tag);
+        }
+        else
+        {
+            SelectedTags.Add(tag);
+        }
+    }
+
+    public void HandleArticleClick(ArticleViewModel article)
+    {
+        // Navigate to the article detail page
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Articles = await ArticleService.GetArticlesAsync();
+        TrendingArticles = await ArticleService.GetTrendingArticlesAsync();
+    }
+
+    public void SetTab(string tab)
+    {
+        ActiveTab = tab;
+    }
+
+
+
+}

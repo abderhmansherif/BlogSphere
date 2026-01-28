@@ -8,8 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
         .AddInteractiveServerComponents();
+builder.Services.AddScoped<IArticleService, ArticleService>();
+
 
 builder.Services.AddInfrastructure(builder.Configuration).AddApplication();
+
 
 var app = builder.Build();
 

@@ -9,5 +9,6 @@ namespace BlogSphere.Application.Articles
     {
         Task<List<ArticleViewModel>> GetArticlesAsync();
         Task<ArticleViewModel> GetArticleByIdAsync(int id);
+        Task<List<ArticleViewModel>> GetTrendingArticlesAsync();
     }
 }
