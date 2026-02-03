@@ -1,10 +1,11 @@
-﻿@page "/"
+﻿@* @page "/"
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 @inject IArticleService ArticleService
 
 
 @using System
+@using BlogSphere.Domain.ViewModels
 
 <div class="home-page">
     <div class="home-hero">
@@ -65,13 +66,21 @@
                         </div>
                     }
 
-                    <!-- Articles -->
-                    <div class="articles-list">
-                        @foreach (var article in Articles)
-                        {
-                            <ArticleCard Article="@article"/>
-                        }
-                    </div>
+                    @if (Articles is not null && Articles.Count > 0)
+                    {
+                        <!-- Articles -->
+                        <div class="articles-list">
+                            @foreach (var article in Articles)
+                            {
+                                <ArticleCard Article="@article" />
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No Articles Found.</p>
+                    }
+
 
                     <div class="load-more">
                         <button class="load-more-btn">
@@ -156,7 +165,7 @@
 
     public List<ArticleViewModel>? Articles { get; set; }
     public List<ArticleViewModel>? TrendingArticles { get; set; }
-    public bool IsAuthenticated = false;
+    public bool IsAuthenticated = true;
     public string ActiveTab = "latest";
     public List<string> Tags = new()
     {
@@ -200,4 +209,4 @@
 
 
 
-}
+} *@

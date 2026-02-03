@@ -1,4 +1,4 @@
-﻿using BlogSphere.Domain.Articles;
+﻿using BlogSphere.Domain.Models;
 
 namespace BlogSphere.Application.Articles
 {

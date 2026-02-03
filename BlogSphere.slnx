@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="BlogSphere.API/BlogSphere.API.csproj" Id="4bac5ade-0615-4220-b3c6-caa6e2056a90" />
     <Project Path="BlogSphere.Application/BlogSphere.Application.csproj" />
     <Project Path="BlogSphere.Domain/BlogSphere.Domain.csproj" />
     <Project Path="BlogSphere.Infrastructure/BlogSphere.Infrastructure.csproj" Id="4cc43c35-2dab-454b-b798-bd09a6d40033" />

@@ -1,5 +1,5 @@
 ﻿using BlogSphere.Application.Articles;
-using BlogSphere.Domain.Articles;
+using BlogSphere.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

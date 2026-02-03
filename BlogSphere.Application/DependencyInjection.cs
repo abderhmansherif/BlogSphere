@@ -10,7 +10,6 @@ namespace BlogSphere.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IArticleService, ArticleService>();
 
             return services;
         }

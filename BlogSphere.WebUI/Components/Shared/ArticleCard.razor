@@ -1,65 +1,69 @@
 @using System.Collections.Generic
+@using BlogSphere.Domain.ViewModels
 @inject NavigationManager NavManager
+<Card Hoverable="true">
+    <ChildContent>
+        <article class="article-card">
+            <!-- Header -->
+            <div class="article-header">
+                <div class="author-info">
+                    <div class="author-avatar">Avatar (Avatar Author)</div>
+                    <div>
+                        <div class="author-name">Steve Doe (Article Author)</div>
+                        <div class="article-meta">
+                            <span>@Article.Date</span>
+                            <span>·</span>
+                            <span>@Article.ReadTime</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="bookmark-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
+                </button>
+            </div>
 
-<article class="article-card">
-    <!-- Header -->
-    <div class="article-header">
-        <div class="author-info">
-            <div class="author-avatar">Avatar (Avatar Author)</div>
-            <div>
-                <div class="author-name">Steve Doe (Article Author)</div>
-                <div class="article-meta">
-                    <span>@Article.Date</span>
-                    <span>·</span>
-                    <span>@Article.ReadTime</span>
+            <!-- Content -->
+            <div class="article-content" @onclick="HandleClick">
+                <div class="article-text">
+                    <h2 class="article-title">@Article.Title</h2>
+                    <p class="article-excerpt">@Article.Content</p>
+                </div>
+                @if (!string.IsNullOrEmpty(Article.CoverImage))
+                {
+                    <div class="article-image">
+                        <img src="@Article.CoverImage" alt="@Article.Title" />
+                    </div>
+                }
+            </div>
+
+            <!-- Footer -->
+            <div class="article-footer">
+                <div class="article-tags">
+                    @foreach (var tag in Article.Tags)
+                    {
+                        <span class="article-tag">@tag</span>
+                    }
+                </div>
+                <div class="article-actions">
+                    <button class="action-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                        <span>@Article.Likes</span>
+                    </button>
+                    <button class="action-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                        <span>@Article.Comments</span>
+                    </button>
                 </div>
             </div>
-        </div>
-        <button class="bookmark-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-            </svg>
-        </button>
-    </div>
-
-    <!-- Content -->
-    <div class="article-content" @onclick="HandleClick">
-        <div class="article-text">
-            <h2 class="article-title">@Article.Title</h2>
-            <p class="article-excerpt">@Article.Content</p>
-        </div>
-        @if (!string.IsNullOrEmpty(Article.CoverImage))
-        {
-            <div class="article-image">
-                <img src="@Article.CoverImage" alt="@Article.Title" />
-            </div>
-        }
-    </div>
-
-    <!-- Footer -->
-    <div class="article-footer">
-        <div class="article-tags">
-            @foreach (var tag in Article.Tags)
-            {
-                <span class="article-tag">@tag</span>
-            }
-        </div>
-        <div class="article-actions">
-            <button class="action-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                </svg>
-                <span>@Article.Likes</span>
-            </button>
-            <button class="action-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
-                <span>@Article.Comments</span>
-            </button>
-        </div>
-    </div>
-</article>
+        </article>
+    </ChildContent>
+</Card>
 
 @code {
     [Parameter]
