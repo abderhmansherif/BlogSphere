@@ -1,8 +1,10 @@
-﻿using BlogSphere.Application.Articles;
+﻿using BlogSphere.Application.Abstractions;
+using BlogSphere.Application.Abstractions.Messaging;
+using BlogSphere.Application.Commandss;
+using BlogSphere.Application.Handlers;
+using BlogSphere.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace BlogSphere.Application
 {
@@ -10,6 +12,9 @@ namespace BlogSphere.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+
+            services.AddScoped<ICommandHandler<CreateArticleCommand, (int, string)>, CreateArticleCommandHandler>();
+            services.AddTransient<ISlugGenerator, SlugGenerator>();
 
             return services;
         }
