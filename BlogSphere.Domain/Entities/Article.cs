@@ -68,9 +68,9 @@ namespace BlogSphere.Domain.Entities
 
         public void Archive()
         {
-            if(_status == ArticleStatus.Archived)
+            if (_status != ArticleStatus.Published)
             {
-                throw new AlreadyArchivedArticleException(_title.Value);
+                throw new CannotArchiveArticleException();
             }
 
             _archiveAt = DateTime.UtcNow;
@@ -81,7 +81,7 @@ namespace BlogSphere.Domain.Entities
 
         public void AddTag(ArticleTag tag)
         {
-            if (_tags.Any(t => t.Name == tag.Name))
+            if (_tags.Any(t => t == tag))
             {
                 throw new AlreadyExistArticleTagException(tag.Name);
             }
@@ -115,11 +115,6 @@ namespace BlogSphere.Domain.Entities
 
         public void AddComment(ArticleComment comment)
         {
-            if (_comments.Any(c => c.Content == comment.Content))
-            {
-                throw new AlreadyExistArticleCommentException(comment.Content);
-            }
-
             _comments.Add(comment);
             AddDomainEvent(new ArticleCommentAdded(this, comment));
         }

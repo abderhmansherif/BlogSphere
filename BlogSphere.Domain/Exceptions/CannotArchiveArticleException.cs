@@ -5,9 +5,9 @@ using System.Text;
 
 namespace BlogSphere.Domain.Exceptions
 {
-    public class AlreadyExistArticleCommentException: ArticleException
+    public class CannotArchiveArticleException: ArticleException
     {
-        public AlreadyExistArticleCommentException(string commentTitle): base($"Comment with title '{commentTitle}' already exists.")
+        public CannotArchiveArticleException(): base("Only Published articles can be archived")
         {
             
         }

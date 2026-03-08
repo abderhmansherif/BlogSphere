@@ -13,8 +13,5 @@ namespace BlogSphere.Domain.Factories
 
         Article CreatePublished(ArticleId articleId, ArticleTitle title, ArticleContent content, ArticleSlug slug,
                         ArticleReadTime readTime, ArticleAuthorId authorId);
-
-        Article CreateArchived(ArticleId articleId, ArticleTitle title, ArticleContent content, ArticleSlug slug,
-                        ArticleReadTime readTime, ArticleAuthorId authorId);
     }
 }

@@ -13,18 +13,6 @@ namespace BlogSphere.Domain.Factories
             return new Article(articleId, title, slug, content, authorId, readTime);
         }
 
-
-        public Article CreateArchived(ArticleId articleId, ArticleTitle title, ArticleContent content, 
-                                ArticleSlug slug, ArticleReadTime readTime, ArticleAuthorId authorId)
-        {
-            var article = new Article(articleId, title, slug, content, authorId, readTime);
-
-            article.Archive();
-
-            return article;
-        }
-
-
         public Article CreatePublished(ArticleId articleId, ArticleTitle title, ArticleContent content, 
                                 ArticleSlug slug, ArticleReadTime readTime, ArticleAuthorId authorId)
         {

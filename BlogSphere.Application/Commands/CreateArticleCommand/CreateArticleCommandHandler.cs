@@ -44,7 +44,7 @@ namespace BlogSphere.Application.Commands.CreateArticleCommand
 
             var newArticle = _factory.CreateDraft(Guid.NewGuid(), title, content, slug, readtime, authorid);
 
-            await _repository.InserAsync(newArticle);
+            await _repository.InsertAsync(newArticle);
         }
     }
 }
