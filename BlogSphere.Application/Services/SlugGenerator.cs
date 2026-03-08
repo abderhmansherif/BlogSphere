@@ -1,14 +1,10 @@
-﻿using BlogSphere.Application.Abstractions;
-using BlogSphere.Application.Abstractions.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace BlogSphere.Application.Services
 {
-    public class SlugGenerator: ISlugGenerator
+    public class SlugGenerator: ISlugGeneratorService
     {
 
         public async Task<string> GenerateAsync(string input)

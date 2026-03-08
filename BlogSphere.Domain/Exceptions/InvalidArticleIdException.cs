@@ -1,14 +1,10 @@
-﻿using BlogSphere.Domain.Abstractions.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BlogSphere.Shared.Abstractions.Exceptions;
 
-namespace BlogSphere.Domain.Exceptions
+namespace BlogSphere.Domain.Exceptions;
+
+internal class InvalidArticleIdException: ArticleException
 {
-    internal class InvalidArticleIdException: ArticleException
+    public InvalidArticleIdException(string value): base($"Invalid article id: {value}")
     {
-        public InvalidArticleIdException(string value): base($"Invalid article id: {value}")
-        {
-        }
     }
 }

@@ -1,8 +1,4 @@
-﻿using BlogSphere.Domain.Abstractions;
-using BlogSphere.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BlogSphere.Domain.Exceptions;
 
 namespace BlogSphere.Domain.ValueObjects.Article
 {

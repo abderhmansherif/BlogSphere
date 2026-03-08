@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlogSphere.Application\BlogSphere.Application.csproj" />
-    <ProjectReference Include="..\BlogSphere.Infrastructure\BlogSphere.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

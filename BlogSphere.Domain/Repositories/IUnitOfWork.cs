@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogSphere.Domain.Abstractions.Repositories
+namespace BlogSphere.Domain.Repositories
 {
     public interface IUnitOfWork
     {

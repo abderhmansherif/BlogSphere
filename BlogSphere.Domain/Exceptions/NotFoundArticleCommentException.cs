@@ -1,8 +1,4 @@
-﻿using BlogSphere.Domain.Abstractions.Domain;
-using BlogSphere.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BlogSphere.Shared.Abstractions.Exceptions;
 
 namespace BlogSphere.Domain.Exceptions
 {

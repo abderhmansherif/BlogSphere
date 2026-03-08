@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogSphere.Domain.Entities
+namespace BlogSphere.Application.Services
 {
-    public class Author
+    internal class IArticleReadService
     {
-
     }
 }

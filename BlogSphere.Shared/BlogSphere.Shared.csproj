@@ -7,14 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="12.1.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
+    <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlogSphere.Domain\BlogSphere.Domain.csproj" />
     <ProjectReference Include="..\BlogSphere.Shared.Abstractions\BlogSphere.Shared.Abstractions.csproj" />
-    <ProjectReference Include="..\BlogSphere.Shared\BlogSphere.Shared.csproj" />
   </ItemGroup>
 
 </Project>

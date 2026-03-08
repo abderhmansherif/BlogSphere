@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogSphere.Application.Abstractions
+namespace BlogSphere.Application.Services
 {
-    public interface ISlugGenerator
+    public interface ISlugGeneratorService
     {
         Task<string> GenerateAsync(string input);
     }

@@ -1,11 +1,9 @@
-﻿using BlogSphere.Domain.Abstractions.Domain;
-using BlogSphere.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BlogSphere.Domain.Entities;
+using BlogSphere.Domain.ValueObjects.Article;
+using BlogSphere.Shared.Abstractions.Domain;
 
 namespace BlogSphere.Domain.Events
 {
-    public record ArticleTagRemoved(Article Article, Tag tag) : IDomainEvent;
+    public record ArticleTagRemoved(Article Article, ArticleTag tag) : IDomainEvent;
 
 }

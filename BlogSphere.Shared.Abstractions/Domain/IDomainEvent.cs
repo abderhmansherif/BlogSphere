@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogSphere.Domain.Abstractions.Domain
+namespace BlogSphere.Shared.Abstractions.Domain
 {
     public interface IDomainEvent
     {

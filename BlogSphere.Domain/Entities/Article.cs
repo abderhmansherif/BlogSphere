@@ -1,15 +1,15 @@
-﻿using Azure;
-using BlogSphere.Domain.Abstractions.Domain;
+﻿
 using BlogSphere.Domain.Enums;
 using BlogSphere.Domain.Events;
 using BlogSphere.Domain.Exceptions;
 using BlogSphere.Domain.ValueObjects.Article;
+using BlogSphere.Shared.Abstractions.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace BlogSphere.Domain.Models
+namespace BlogSphere.Domain.Entities
 {
     public class Article : AggregateRoot
     {
@@ -32,11 +32,10 @@ namespace BlogSphere.Domain.Models
 
         private DateTime _archiveAt;
 
-
         private ArticleReadTime _readTime;
 
-        private readonly List<Tag> _tags = new List<Tag>();
-        private readonly List<Comment> _comments = new List<Comment>();
+        private readonly List<ArticleTag> _tags = new ();
+        private readonly List<ArticleComment> _comments = new ();
 
 
         internal Article(ArticleId id, ArticleTitle title, ArticleSlug slug, ArticleContent content,
@@ -51,6 +50,9 @@ namespace BlogSphere.Domain.Models
             _createdAt = DateTime.UtcNow;
             _readTime = readTime;
         }
+
+        private Article()
+        { }
 
         public void Publish()
         {
@@ -77,9 +79,9 @@ namespace BlogSphere.Domain.Models
         }
 
 
-        public void AddTag(Tag tag)
+        public void AddTag(ArticleTag tag)
         {
-            if (_tags.Any(x => x.Name.Equals(tag.Name, StringComparison.OrdinalIgnoreCase)))
+            if (_tags.Any(t => t.Name == tag.Name))
             {
                 throw new AlreadyExistArticleTagException(tag.Name);
             }
@@ -101,7 +103,7 @@ namespace BlogSphere.Domain.Models
             AddDomainEvent(new ArticleTagRemoved(this, existingTag));
         }
 
-        public Tag GetTag(string tagName)
+        public ArticleTag GetTag(string tagName)
         {
             var existingTag = _tags.Find(x => x.Name.Equals(tagName, StringComparison.OrdinalIgnoreCase));
             if (existingTag is null)
@@ -111,9 +113,9 @@ namespace BlogSphere.Domain.Models
             return existingTag;
         }
 
-        public void AddComment(Comment comment)
+        public void AddComment(ArticleComment comment)
         {
-            if (_comments.Any(x => x.Content.Equals(comment.Content, StringComparison.OrdinalIgnoreCase)))
+            if (_comments.Any(c => c.Content == comment.Content))
             {
                 throw new AlreadyExistArticleCommentException(comment.Content);
             }
@@ -122,7 +124,7 @@ namespace BlogSphere.Domain.Models
             AddDomainEvent(new ArticleCommentAdded(this, comment));
         }
 
-        public Comment GetComment(string commentContent)
+        public ArticleComment GetComment(string commentContent)
         {
             var existingComment = _comments.Find(x => x.Content.Equals(commentContent, StringComparison.OrdinalIgnoreCase));
             if (existingComment is null)

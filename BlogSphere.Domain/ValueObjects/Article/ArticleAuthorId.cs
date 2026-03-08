@@ -22,7 +22,7 @@ namespace BlogSphere.Domain.ValueObjects.Article
         public static implicit operator Guid(ArticleAuthorId authorId) 
             => authorId.Value;
 
-        public static implicit operator ArticleAuthorId(int value)
+        public static implicit operator ArticleAuthorId(Guid value)
             => new ArticleAuthorId(value);
 
     }

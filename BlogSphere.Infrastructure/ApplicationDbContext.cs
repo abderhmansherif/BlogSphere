@@ -1,4 +1,5 @@
 ﻿using BlogSphere.Domain.Models;
+using BlogSphere.Domain.ValueObjects.Article;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace BlogSphere.Infrastructure
         public DbSet<Article> Articles { get; set; }
         public DbSet<User> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<ArticleTag> Tags { get; set; }
         public DbSet<ArticleTag> ArticleTags { get; set; }
 
 

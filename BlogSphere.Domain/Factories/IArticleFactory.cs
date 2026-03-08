@@ -1,14 +1,15 @@
-﻿using BlogSphere.Domain.Enums;
-using BlogSphere.Domain.Models;
+﻿using BlogSphere.Domain.Entities;
 using BlogSphere.Domain.ValueObjects.Article;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-
-namespace BlogSphere.Domain.Abstractions.Domain
+namespace BlogSphere.Domain.Factories
 {
     public interface IArticleFactory
     {
-        Article CreateDDraft(ArticleId articleId, ArticleTitle title, ArticleContent content, ArticleSlug slug,
-                        ArticleReadTime readTime, ArticleAuthorId authorId);
+        Article CreateDraft(ArticleId articleId, ArticleTitle title, ArticleContent content, ArticleSlug slug,
+                       ArticleReadTime readTime, ArticleAuthorId authorId);
 
         Article CreatePublished(ArticleId articleId, ArticleTitle title, ArticleContent content, ArticleSlug slug,
                         ArticleReadTime readTime, ArticleAuthorId authorId);

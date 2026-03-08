@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogSphere.Domain.Entities
+namespace BlogSphere.Shared.Abstractions.Command
 {
-    public class Author
+    public interface ICommand
     {
-
     }
 }
